@@ -1,4 +1,4 @@
-package com.indraparkapi.model;
+package com.indraparkapi.domain;
 
 public class Test {
 
