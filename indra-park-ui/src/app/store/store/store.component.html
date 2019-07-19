@@ -1,0 +1,22 @@
+<div class="container">
+  <form [formGroup]="forms" (ngSubmit)="onSubmit()">
+    <mat-form-field class="field-full-width">
+      <input matInput type="text" placeholder="Plate" formControlName="plate" required>
+
+      <mat-error>Please inform the plate, following the Brazilian standard of plates "AAA-9999"</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="field-full-width" >
+      <mat-select placeholder="Vehicle types" formControlName="model" required>
+        <mat-option value="MOTORCYCLE">Motorcycle</mat-option>
+        <mat-option value="CAR">Car</mat-option>
+        <mat-option value="TRUCK">Truck</mat-option>
+        <mat-option value="LIGHT TRUCK">Light Truck</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <button mat-raised-button color="primary" class="btn-store">Store vehicle in park</button>
+  </form>
+</div>
+

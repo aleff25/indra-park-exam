@@ -1,0 +1,42 @@
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 30px auto 0;
+  padding: 30px;
+  background: #fff;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+}
+
+.table-container {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+.container-filter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.btn-search {
+  height: 40px;
+  top: 15px;
+}
+
+@media screen and (max-width: 800px) {
+
+  .container-filter {
+    flex-direction: column;
+    align-content: space-between;
+  }
+
+  .btn-search {
+    height: 40px;
+    top: 5px;
+  }
+}

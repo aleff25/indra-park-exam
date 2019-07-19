@@ -1,7 +1,6 @@
 package com.indraparkapi.domain.park;
 
 import com.indraparkapi.domain.commons.exception.ErrorCode;
-import com.indraparkapi.domain.commons.exception.ParkError;
 import com.indraparkapi.domain.commons.exception.ParkException;
 
 import java.util.stream.Stream;
@@ -10,6 +9,8 @@ import java.util.stream.Stream;
  * Operation status of a vehicule
  */
 public enum Operation {
+
+    NONE("NONE"),
     ENTRANCE("ENTRANCE"),
     EXIT("EXIT");
 

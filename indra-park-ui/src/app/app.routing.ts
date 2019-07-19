@@ -1,7 +1,8 @@
-import { Routes } from '@angular/router';
-
-import { FullComponent } from './layouts/full/full.component';
-import {TestComponent} from './view/test/test.component';
+import {Routes} from '@angular/router';
+import {DashboardComponent} from './dashboard/dashboard/dashboard.component';
+import {FullComponent} from './full/full.component';
+import {FilterComponent} from './filter/filter/filter.component';
+import {StoreComponent} from './store/store/store.component';
 
 export const AppRoutes: Routes = [
   {
@@ -10,12 +11,20 @@ export const AppRoutes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'test',
+        redirectTo: 'dashboard',
         pathMatch: 'full'
       },
       {
-        path: 'test',
-        component: TestComponent
+        path: 'dashboard',
+        component: DashboardComponent
+      },
+      {
+        path: 'search',
+        component: FilterComponent
+      },
+      {
+        path: 'store',
+        component: StoreComponent
       }
     ]
   }

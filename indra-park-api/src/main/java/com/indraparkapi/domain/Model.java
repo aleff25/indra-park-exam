@@ -1,5 +1,10 @@
 package com.indraparkapi.domain;
 
+import com.indraparkapi.domain.commons.exception.ErrorCode;
+import com.indraparkapi.domain.commons.exception.ParkException;
+
+import java.util.stream.Stream;
+
 /**
  * Map the name and value of the models that can be implemented.
  * If you need to change the value to perform the calculation,
@@ -26,5 +31,10 @@ public enum Model {
 
     public int getValue() {
         return value;
+    }
+
+    public static Model of(String name) {
+        return Stream.of(values()).filter(model -> model.getName().equals(name)).findFirst()
+            .orElseThrow(() -> new ParkException(ErrorCode.NOT_FOUND.getCode(), "Invalid Model", 404));
     }
 }

@@ -7,9 +7,11 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
@@ -18,6 +20,7 @@ import java.util.Date;
  * Entity that maps the operations for the management of the model
  */
 @Entity
+@Table(name = "park")
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
     allowGetters = true)
@@ -25,6 +28,7 @@ public class Vehicle {
 
     @Id
     private String plate;
+    @Column(name = "car_model")
     private String model;
     private String operation;
     @Temporal(TemporalType.TIMESTAMP)
@@ -39,12 +43,12 @@ public class Vehicle {
         //Default constructor
     }
 
-    Vehicle(ParkBuilder parkBuilder) {
-        this.plate = parkBuilder.plate;
-        this.model = parkBuilder.model.getName();
-        this.operation = parkBuilder.operation.getName();
-        this.createdAt = parkBuilder.createdAt;
-        this.updatedAt = parkBuilder.updatedAt;
+    Vehicle(VehicleBuilder vehicleBuilder) {
+        this.plate = vehicleBuilder.plate;
+        this.model = vehicleBuilder.model.getName();
+        this.operation = vehicleBuilder.operation.getName();
+        this.createdAt = vehicleBuilder.createdAt;
+        this.updatedAt = vehicleBuilder.updatedAt;
     }
 
     public String getPlate() {

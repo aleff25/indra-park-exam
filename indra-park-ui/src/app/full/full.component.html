@@ -2,10 +2,9 @@
 <div class="main-container" >
   <mat-toolbar color="primary" class="topbar telative">
 
-    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
-    <mat-menu #menu="matMenu">
-      <button [routerLink]="['/test']" mat-menu-item>Test</button>
-    </mat-menu>
+    <button mat-button [routerLink]="['/dashboard']">Home</button>
+    <button mat-button [routerLink]="['/search']">Search</button>
+    <button mat-button [routerLink]="['/store']">Store Vehicle</button>
 
   </mat-toolbar>
   <mat-sidenav-container class="example-sidenav-container" >

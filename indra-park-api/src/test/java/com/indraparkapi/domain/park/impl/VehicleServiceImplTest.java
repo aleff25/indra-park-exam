@@ -2,7 +2,7 @@ package com.indraparkapi.domain.park.impl;
 
 import com.indraparkapi.domain.Model;
 import com.indraparkapi.domain.commons.exception.ParkException;
-import com.indraparkapi.domain.park.ParkBuilder;
+import com.indraparkapi.domain.park.VehicleBuilder;
 import com.indraparkapi.domain.park.ParkRepository;
 import com.indraparkapi.domain.park.Vehicle;
 import org.assertj.core.util.DateUtil;
@@ -25,6 +25,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -34,7 +35,7 @@ import static org.mockito.Mockito.when;
 public class VehicleServiceImplTest {
 
     @Autowired
-    private ParkServiceImpl parkService;
+    private VehicleServiceImpl parkService;
 
     @MockBean
     private ParkRepository parkRepository;
@@ -73,7 +74,7 @@ public class VehicleServiceImplTest {
             .isThrownBy(() -> parkService.add(getVehicle()))
             .withMessageContaining("Already found a vehicle with this plate, NIX-1025");
 
-        verify(parkRepository, times(0)).save(any());
+        verify(parkRepository, never()).save(any());
     }
 
     @Test
@@ -142,8 +143,25 @@ public class VehicleServiceImplTest {
             .findByOperationAndUpdatedAtBetween(anyString(), any(), any());
     }
 
+    @Test
+    public void listWithParams_OnlyDates() {
+        when(parkRepository.findByUpdatedAtBetween(any(), any()))
+            .thenReturn(Collections.singletonList(getVehicle()));
+
+        List<Vehicle> list = parkService.list(DateUtil.now(), DateUtil.now());
+
+        assertThat(list.isEmpty()).isFalse();
+
+        Vehicle vehicle = list.iterator().next();
+        assertThat(DateUtil.truncateTime(vehicle.getCreatedAt())).isEqualTo(DateUtil.truncateTime(DateUtil.now()));
+        assertThat(vehicle.getOperation()).isEqualTo(ENTRANCE.getName());
+
+        verify(parkRepository, times(1))
+            .findByUpdatedAtBetween(any(), any());
+    }
+
     private Vehicle getVehicle() {
-        return new ParkBuilder("NIX-1025").model(Model.CAR)
+        return new VehicleBuilder("NIX-1025").model(Model.CAR)
             .operation(ENTRANCE)
             .createdAt(DateUtil.now())
             .build();

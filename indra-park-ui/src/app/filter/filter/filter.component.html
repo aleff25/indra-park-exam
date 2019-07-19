@@ -1,0 +1,81 @@
+<div class="container">
+  <div class="container-filter">
+    <mat-form-field>
+      <input matInput [matDatepicker]="startDP" placeholder="Initial Date" [formControl]="initialDate" disabled>
+      <mat-datepicker-toggle matSuffix [for]="startDP"></mat-datepicker-toggle>
+      <mat-datepicker #startDP disabled="false"></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="finalDP" placeholder="Final Date" [formControl]="finalDate" disabled>
+      <mat-datepicker-toggle matSuffix [for]="finalDP"></mat-datepicker-toggle>
+      <mat-datepicker #finalDP disabled="false"></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select [(value)]="operation" placeholder="Operation">
+        <mat-option>None</mat-option>
+        <mat-option value="ENTRANCE">Entrance</mat-option>
+        <mat-option value="EXIT">Exit</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="search()" class="btn-search">Search</button>
+  </div>
+
+  <br/>
+
+  <div class="table-container">
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <!-- Plate Column -->
+      <ng-container matColumnDef="plate">
+        <th mat-header-cell *matHeaderCellDef>Plate</th>
+        <td mat-cell *matCellDef="let element"> {{element.plate}} </td>
+      </ng-container>
+
+      <!-- Type Column -->
+      <ng-container matColumnDef="model">
+        <th mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let element"> {{element.model}} </td>
+      </ng-container>
+
+      <!-- Date Activity Column -->
+      <ng-container matColumnDef="operation">
+        <th mat-header-cell *matHeaderCellDef>Operation</th>
+        <td mat-cell *matCellDef="let element"> {{element.operation}} </td>
+      </ng-container>
+
+      <!-- Operation Column -->
+      <ng-container matColumnDef="updatedAt">
+        <th mat-header-cell *matHeaderCellDef>Last Activity</th>
+        <td mat-cell *matCellDef="let element"> {{ element.updatedAt | date }} </td>
+      </ng-container>
+
+      <!-- Star Column -->
+      <ng-container matColumnDef="star" stickyEnd>
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button [matMenuTriggerFor]="options" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #options="matMenu">
+            <button *ngIf="element.operation == 'ENTRANCE'" (click)="leave(element)"  mat-menu-item>
+              <mat-icon>time_to_leave</mat-icon>
+              <span>Leave Park</span>
+            </button>
+            <button mat-menu-item (click)="remove(element)">
+              <mat-icon>remove_circle</mat-icon>
+              <span>Remove</span>
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+  </div>
+</div>

@@ -5,7 +5,7 @@ import com.indraparkapi.domain.Model;
 import java.util.Date;
 import java.util.List;
 
-public interface ParkService {
+public interface VehicleService {
 
     /**
      * Search for vehicle in park
@@ -38,6 +38,14 @@ public interface ParkService {
      * @return {@link List< Vehicle >}
      */
     List<Vehicle> list();
+
+    /**
+     * Search all vehicles in park by opeation
+     * @param initialDate {@link Date} to search
+     * @param finalDate {@link Date} to search
+     * @return {@link List< Vehicle >}
+     */
+    List<Vehicle> list(Date initialDate, Date finalDate);
 
     /**
      * Search all vehicles in park by opeation

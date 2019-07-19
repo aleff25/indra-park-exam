@@ -11,5 +11,6 @@ public interface ParkRepository extends JpaRepository<Vehicle, String> {
 
     List<Vehicle> findByOperationAndUpdatedAtBetween(String operation, Date initialDate, Date finalDate);
 
-    List<Vehicle> findByOperation(String operation);
+    List<Vehicle> findByUpdatedAtBetween(Date initialDate, Date finalDate);
+
 }

@@ -5,8 +5,8 @@ import com.indraparkapi.domain.commons.exception.ParkError;
 import com.indraparkapi.domain.commons.exception.ParkException;
 import com.indraparkapi.domain.park.Operation;
 import com.indraparkapi.domain.park.ParkRepository;
-import com.indraparkapi.domain.park.ParkService;
 import com.indraparkapi.domain.park.Vehicle;
+import com.indraparkapi.domain.park.VehicleService;
 import io.vavr.control.Option;
 import io.vavr.control.Try;
 import org.apache.commons.lang3.Validate;
@@ -21,10 +21,10 @@ import java.util.List;
 import java.util.function.Supplier;
 
 
-@Service("parkService")
-public class ParkServiceImpl implements ParkService {
+@Service("vehicleService")
+public class VehicleServiceImpl implements VehicleService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ParkServiceImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(VehicleServiceImpl.class);
 
     @Autowired
     private ParkRepository parkRepository;
@@ -90,6 +90,15 @@ public class ParkServiceImpl implements ParkService {
         Operation oper = Operation.of(operation);
         return Try.of(() -> this.parkRepository
             .findByOperationAndUpdatedAtBetween(oper.getName(), initialDate, finalDate))
+            .getOrElse(ArrayList::new);
+    }
+
+    @Override
+    public List<Vehicle> list(Date initialDate, Date finalDate) {
+        LOG.info("Start searching for vehicles dates between [ {} and {} ]", initialDate, finalDate);
+
+        return Try.of(() -> this.parkRepository
+            .findByUpdatedAtBetween(initialDate, finalDate))
             .getOrElse(ArrayList::new);
     }
 
