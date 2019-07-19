@@ -5,6 +5,18 @@ Desafio técnico – Desenvolvedor Web
 
 * [Postgres] 
 
+Create your table 
+### 
+<code>CREATE TABLE public.park (
+                        	plate varchar(9) NOT NULL,
+                        	car_model varchar(20) NOT NULL,
+                        	created_at timestamp NOT NULL,
+                        	operation varchar(20) NOT NULL,
+                        	updated_at timestamp NOT NULL,
+                        	CONSTRAINT park_pk PRIMARY KEY (plate)
+                        );
+                  </code>
+
 ### Clone
 Run: `git clone https://github.com/Andryev/indra-park-exam.git`
 
